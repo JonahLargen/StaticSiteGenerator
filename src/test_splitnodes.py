@@ -26,7 +26,7 @@ class TestSplitNodes(unittest.TestCase):
         ]
         self.assertEqual(new_nodes, new_nodes_2)
         
-    def test_bold(self):
+    def test_italic(self):
         node = TextNode("This is text with a *italic* word", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "*", TextType.BOLD)
         new_nodes_2 = [
