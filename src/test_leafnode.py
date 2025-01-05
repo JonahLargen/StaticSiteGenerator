@@ -13,6 +13,11 @@ class TestLeafNode(unittest.TestCase):
         html = node.to_html()
         self.assertEqual(html, "<p>This is a paragraph of text.</p>")
         
+    def test_to_html_with_props(self):
+        node = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
+        html = node.to_html()
+        self.assertEqual(html, "<a href=\"https://www.google.com\">Click me!</a>")
+        
     def test_to_html_no_tag(self):
         node = LeafNode(None, "This is a block of text.")
         html = node.to_html()
