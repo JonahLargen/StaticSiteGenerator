@@ -13,7 +13,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         
         sections = old_node.text.split(delimiter)
         
-        if (len(sections) %2 == 0):
+        if (len(sections) % 2 == 0):
             raise ValueError("Invalid markdown syntax, all markdown that is opened must be closed by a matching tag")
         
         text_field = True
@@ -46,6 +46,10 @@ def split_nodes_image(old_nodes):
             link_text = link[0]
             link_link = link[1]
             sections = working_text.split(f"![{link_text}]({link_link})", 1)
+            
+            if (len(sections) != 2):
+                raise ValueError("Invalid markdown, image section not closed")
+            
             new_nodes.append(TextNode(sections[0], TextType.TEXT))
             new_nodes.append(TextNode(link_text, TextType.IMAGE, link_link))
             working_text = sections[1]
@@ -69,6 +73,10 @@ def split_nodes_link(old_nodes):
             link_text = link[0]
             link_link = link[1]
             sections = working_text.split(f"[{link_text}]({link_link})", 1)
+            
+            if (len(sections) != 2):
+                raise ValueError("Invalid markdown, link section not closed")
+            
             new_nodes.append(TextNode(sections[0], TextType.TEXT))
             new_nodes.append(TextNode(link_text, TextType.LINK, link_link))
             working_text = sections[1]
