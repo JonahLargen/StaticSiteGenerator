@@ -11,3 +11,9 @@ def text_to_textnodes(text):
     split_nodes = split_nodes_link(split_nodes)
     
     return split_nodes
+
+def markdown_to_blocks(markdown):
+    texts = markdown.split('\n\n')
+    texts = list(map(lambda x: x.strip(), texts))
+    texts = list(filter(lambda x: len(x) > 0, texts))
+    return texts
