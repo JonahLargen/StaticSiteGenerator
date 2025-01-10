@@ -1,6 +1,6 @@
 import unittest
 
-from splittext import text_to_textnodes, markdown_to_blocks
+from splittext import text_to_textnodes, markdown_to_blocks, block_to_block_type
 from textnode import TextNode, TextType
 
 class TestSplitText(unittest.TestCase):
@@ -59,3 +59,43 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
 * This is another list item'''
         ]
         self.assertEqual(blocks, blocks2)
+        
+    def test_block_to_block_type_heading(self):
+        types = [
+            block_to_block_type("# hello"),
+            block_to_block_type("## hello"),
+            block_to_block_type("### hello"),
+            block_to_block_type("#### hello"),
+            block_to_block_type("##### hello"),
+            block_to_block_type("###### hello")
+        ]
+        for type in types:
+            self.assertEqual(type, 'heading')
+            
+    def test_block_to_block_type_code(self):
+        type = block_to_block_type("```hello world```")
+        self.assertEqual(type, 'code')
+        
+    def test_block_to_block_type_quote(self):
+        type = block_to_block_type(">hello\n>world")
+        self.assertEqual(type, 'quote')
+        
+    def test_block_to_block_type_unordered_list(self):
+        type = block_to_block_type("* hello\n- world")
+        self.assertEqual(type, 'unordered_list')
+        
+    def test_block_to_block_type_ordered_list(self):
+        type = block_to_block_type("1. hello\n2. world")
+        self.assertEqual(type, 'ordered_list')
+        
+    def test_block_to_block_type_ordered_paragraph(self):
+        types = [
+            block_to_block_type("hello world"),
+            block_to_block_type("#hello world"),
+            block_to_block_type("####### hello world"),
+            block_to_block_type(">hello\nworld"),
+            block_to_block_type("*hello\n- world"),
+            block_to_block_type("1. hello\n3. world")
+        ]
+        for type in types:
+            self.assertEqual(type, 'paragraph')

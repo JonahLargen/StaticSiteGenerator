@@ -17,3 +17,18 @@ def markdown_to_blocks(markdown):
     texts = list(map(lambda x: x.strip(), texts))
     texts = list(filter(lambda x: len(x) > 0, texts))
     return texts
+
+def block_to_block_type(markdown):
+    for i in range(1, 7):
+        if markdown.startswith('#' * i + ' '):
+            return "heading"
+    if (markdown.startswith('```') and markdown.endswith('```')):
+        return "code"
+    lines = markdown.split('\n')
+    if (all(map(lambda line: line.startswith('>'), lines))):
+        return "quote"
+    if (all(map(lambda line: line.startswith('* ') or line.startswith('- '), lines))):
+        return "unordered_list"
+    if (all(map(lambda x: x[1].startswith(f"{int(x[0]) + 1}. "), enumerate(lines)))):
+        return "ordered_list"
+    return "paragraph"
