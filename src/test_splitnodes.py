@@ -46,6 +46,14 @@ class TestSplitNodes(unittest.TestCase):
         ]
         self.assertEqual(new_nodes, new_nodes_2)
         
+    def test_bold_2(self):
+        node = TextNode("**bold word**", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
+        new_nodes_2 = [
+            TextNode("bold word", TextType.BOLD)
+        ]
+        self.assertEqual(new_nodes, new_nodes_2)
+        
     def test_error(self):
         node = TextNode("This is text with a bad **bold word", TextType.TEXT)
         with self.assertRaises(ValueError):
