@@ -1,7 +1,6 @@
-from textnode import *
+from contents import copy_source_contents_to_destination
 
 def main():
-    node = TextNode("This is a text node", TextType.BOLD, "https://www.boot.dev")
-    print(node)
-    
+    copy_source_contents_to_destination("static", "public")
+        
 main()

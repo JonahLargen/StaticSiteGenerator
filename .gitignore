@@ -5,6 +5,7 @@
 
 # Custom
 __pycache__/
+public/
 
 # User-specific files
 *.rsuser
