@@ -1,7 +1,7 @@
 import unittest
 
 from htmlnode import HtmlNode
-from splittext import text_to_textnodes, markdown_to_blocks, block_to_block_type, markdown_to_html_node
+from splittext import text_to_textnodes, markdown_to_blocks, block_to_block_type, markdown_to_html_node, extract_title
 from textnode import TextNode, TextType
 from leafnode import LeafNode
 
@@ -108,7 +108,7 @@ This is a paragraph of text. It has some **bold** and *italic* words inside of i
 
 Paragraph
 
-- List Item A
+- List Item **A**
 - List Item B
 
 1. List Item 1
@@ -128,20 +128,31 @@ Paragraph
 code block
 ```
 
->quote block'''
+> quote block'''
         html = markdown_to_html_node(markdown)
         html2 = HtmlNode(tag="div",children=[
-            HtmlNode(tag="h1",value="Header"),
+            HtmlNode(tag="h1",children=[
+                LeafNode(tag=None,value="Header")
+            ]),
             HtmlNode(tag="p",children=[
                 LeafNode(tag=None,value="Paragraph")
             ]),
             HtmlNode(tag="ul",children=[
-                HtmlNode(tag="li",value="List Item A"),
-                HtmlNode(tag="li",value="List Item B")
+                HtmlNode(tag="li",children=[
+                    LeafNode(tag=None,value="List Item "),
+                    LeafNode(tag="b",value="A")
+                ]),
+                HtmlNode(tag="li",children=[
+                    LeafNode(tag=None,value="List Item B")
+                ])
             ]),
             HtmlNode(tag="ol",children=[
-                HtmlNode(tag="li",value="List Item 1"),
-                HtmlNode(tag="li",value="List Item 2")
+                HtmlNode(tag="li",children=[
+                    LeafNode(tag=None,value="List Item 1")
+                ]),
+                HtmlNode(tag="li",children=[
+                    LeafNode(tag=None,value="List Item 2")
+                ])
             ]),
             HtmlNode(tag="p",children=[
                 LeafNode(tag="a",value="link",props={"href":"somewhere"})
@@ -159,8 +170,16 @@ code block
                 LeafNode(tag="code",value="code")
             ]),
             HtmlNode(tag="pre",children=[
-                HtmlNode(tag="code",value="code block")
+                HtmlNode(tag="code",children=[
+                    LeafNode(tag=None,value="code block")
+                ])
             ]),
-            HtmlNode(tag="blockquote",value="quote block")
+            HtmlNode(tag="blockquote",children=[
+                LeafNode(tag=None,value="quote block")
+            ])
         ])
         self.assertEqual(html, html2)
+        
+    def test_extract_title(self):
+        title = extract_title("# Hello")
+        self.assertEqual(title, 'Hello')

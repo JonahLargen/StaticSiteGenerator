@@ -49,23 +49,31 @@ def text_to_html_node(block):
         for i in range(1, 7):
             if block.startswith('#' * i):
                 text = block[i + 1:]
-                return HtmlNode(tag=f"h{i}",value=text)
+                return HtmlNode(tag=f"h{i}",children=text_to_children(text))
     elif (block_type == "code"):
         text = "\n".join(block.split('\n')[1:-1])
-        inner_node = HtmlNode(tag="code",value=text)
+        inner_node = HtmlNode(tag="code",children=text_to_children(text))
         return HtmlNode(tag="pre",children=[inner_node])
     elif (block_type == "quote"):
-        text = "\n".join(map(lambda s: s[1:], block.split("\n")))
-        return HtmlNode(tag="blockquote",value=text)
+        text = "\n".join(map(lambda s: s[2:], block.split("\n")))
+        return HtmlNode(tag="blockquote",children=text_to_children(text))
     elif (block_type == "unordered_list"):
-        texts = list(map(lambda s: HtmlNode(tag="li",value=s[2:]), block.split("\n")))
-        return HtmlNode(tag="ul",children=texts)
+        children = list(map(lambda s: HtmlNode(tag="li",children=text_to_children(s[2:])), block.split("\n")))
+        return HtmlNode(tag="ul",children=children)
     elif (block_type == "ordered_list"):
-        texts = list(map(lambda s: HtmlNode(tag="li",value=s[1][(len(str(s[0])) + 2):]), enumerate(block.split("\n"), start=1)))
-        return HtmlNode(tag="ol",children=texts)
+        children = list(map(lambda s: HtmlNode(tag="li",children=text_to_children(s[1][(len(str(s[0])) + 2):])), enumerate(block.split("\n"), start=1)))
+        return HtmlNode(tag="ol",children=children)
     elif (block_type == "paragraph"):
-        text_nodes = text_to_textnodes(block)
-        html_nodes = list(map(lambda t: t.to_html_node(), text_nodes))
-        return HtmlNode(tag="p",children=html_nodes)
+        return HtmlNode(tag="p",children=text_to_children(block))
     else:
         raise ValueError(f"Unknown block type: {block_type}")
+   
+def text_to_children(text):
+    return list(map(lambda t: t.to_html_node(), text_to_textnodes(text)))
+    
+def extract_title(markdown):
+    blocks = markdown_to_blocks(markdown)
+    for block in blocks:
+        if block_to_block_type(block) == "heading" and block.startswith('# '):
+            return block[2:]
+    raise Exception('No title found')

@@ -1,5 +1,4 @@
 from htmlnode import HtmlNode
-from leafnode import LeafNode
 
 class ParentNode(HtmlNode):
     def __init__(self, tag, children, props=None):
