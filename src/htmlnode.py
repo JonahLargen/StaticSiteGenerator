@@ -6,14 +6,7 @@ class HtmlNode:
         self.props = props
         
     def to_html(self):
-        front_tag = f"<{self.tag}{self.props_to_html()}>"
-        back_tag = f"</{self.tag}>"
-        
-        if (self.children is not None):
-            child_html = "".join(map(lambda child: child.to_html(), self.children))
-            return f"{front_tag}{child_html}{back_tag}"
-        
-        return f"{front_tag}{self.value}{back_tag}"
+        raise NotImplementedError()
     
     def props_to_html(self):
         if (self.props is None):

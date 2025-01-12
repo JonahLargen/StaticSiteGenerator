@@ -1,9 +1,9 @@
 import unittest
 
-from htmlnode import HtmlNode
 from splittext import text_to_textnodes, markdown_to_blocks, block_to_block_type, markdown_to_html_node, extract_title
 from textnode import TextNode, TextType
 from leafnode import LeafNode
+from parentnode import ParentNode
 
 class TestSplitText(unittest.TestCase):
     def test_splittext_eq(self):
@@ -130,51 +130,51 @@ code block
 
 > quote block'''
         html = markdown_to_html_node(markdown)
-        html2 = HtmlNode(tag="div",children=[
-            HtmlNode(tag="h1",children=[
+        html2 = ParentNode(tag="div",children=[
+            ParentNode(tag="h1",children=[
                 LeafNode(tag=None,value="Header")
             ]),
-            HtmlNode(tag="p",children=[
+            ParentNode(tag="p",children=[
                 LeafNode(tag=None,value="Paragraph")
             ]),
-            HtmlNode(tag="ul",children=[
-                HtmlNode(tag="li",children=[
+            ParentNode(tag="ul",children=[
+                ParentNode(tag="li",children=[
                     LeafNode(tag=None,value="List Item "),
                     LeafNode(tag="b",value="A")
                 ]),
-                HtmlNode(tag="li",children=[
+                ParentNode(tag="li",children=[
                     LeafNode(tag=None,value="List Item B")
                 ])
             ]),
-            HtmlNode(tag="ol",children=[
-                HtmlNode(tag="li",children=[
+            ParentNode(tag="ol",children=[
+                ParentNode(tag="li",children=[
                     LeafNode(tag=None,value="List Item 1")
                 ]),
-                HtmlNode(tag="li",children=[
+                ParentNode(tag="li",children=[
                     LeafNode(tag=None,value="List Item 2")
                 ])
             ]),
-            HtmlNode(tag="p",children=[
+            ParentNode(tag="p",children=[
                 LeafNode(tag="a",value="link",props={"href":"somewhere"})
             ]),
-            HtmlNode(tag="p",children=[
+            ParentNode(tag="p",children=[
                 LeafNode(tag="img",value="",props={"src":"something","alt":"image"})
             ]),
-            HtmlNode(tag="p",children=[
+            ParentNode(tag="p",children=[
                 LeafNode(tag="i",value="italics")
             ]),
-            HtmlNode(tag="p",children=[
+            ParentNode(tag="p",children=[
                 LeafNode(tag="b",value="bold")
             ]),
-            HtmlNode(tag="p",children=[
+            ParentNode(tag="p",children=[
                 LeafNode(tag="code",value="code")
             ]),
-            HtmlNode(tag="pre",children=[
-                HtmlNode(tag="code",children=[
+            ParentNode(tag="pre",children=[
+                ParentNode(tag="code",children=[
                     LeafNode(tag=None,value="code block")
                 ])
             ]),
-            HtmlNode(tag="blockquote",children=[
+            ParentNode(tag="blockquote",children=[
                 LeafNode(tag=None,value="quote block")
             ])
         ])

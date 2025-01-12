@@ -1,3 +1,4 @@
+from parentnode import ParentNode
 from htmlnode import HtmlNode
 from textnode import TextNode, TextType
 from splitnodes import split_nodes_delimiter, split_nodes_image, split_nodes_link
@@ -40,7 +41,7 @@ def markdown_to_html_node(markdown):
     for block in blocks:
         node = text_to_html_node(block)
         nodes.append(node)
-    parent_node = HtmlNode(tag="div",children=nodes)
+    parent_node = ParentNode(tag="div",children=nodes)
     return parent_node
             
 def text_to_html_node(block):
@@ -49,22 +50,22 @@ def text_to_html_node(block):
         for i in range(1, 7):
             if block.startswith('#' * i):
                 text = block[i + 1:]
-                return HtmlNode(tag=f"h{i}",children=text_to_children(text))
+                return ParentNode(tag=f"h{i}",children=text_to_children(text))
     elif (block_type == "code"):
         text = "\n".join(block.split('\n')[1:-1])
-        inner_node = HtmlNode(tag="code",children=text_to_children(text))
-        return HtmlNode(tag="pre",children=[inner_node])
+        inner_node = ParentNode(tag="code",children=text_to_children(text))
+        return ParentNode(tag="pre",children=[inner_node])
     elif (block_type == "quote"):
         text = "\n".join(map(lambda s: s[2:], block.split("\n")))
-        return HtmlNode(tag="blockquote",children=text_to_children(text))
+        return ParentNode(tag="blockquote",children=text_to_children(text))
     elif (block_type == "unordered_list"):
-        children = list(map(lambda s: HtmlNode(tag="li",children=text_to_children(s[2:])), block.split("\n")))
-        return HtmlNode(tag="ul",children=children)
+        children = list(map(lambda s: ParentNode(tag="li",children=text_to_children(s[2:])), block.split("\n")))
+        return ParentNode(tag="ul",children=children)
     elif (block_type == "ordered_list"):
-        children = list(map(lambda s: HtmlNode(tag="li",children=text_to_children(s[1][(len(str(s[0])) + 2):])), enumerate(block.split("\n"), start=1)))
-        return HtmlNode(tag="ol",children=children)
+        children = list(map(lambda s: ParentNode(tag="li",children=text_to_children(s[1][(len(str(s[0])) + 2):])), enumerate(block.split("\n"), start=1)))
+        return ParentNode(tag="ol",children=children)
     elif (block_type == "paragraph"):
-        return HtmlNode(tag="p",children=text_to_children(block))
+        return ParentNode(tag="p",children=text_to_children(block))
     else:
         raise ValueError(f"Unknown block type: {block_type}")
    
