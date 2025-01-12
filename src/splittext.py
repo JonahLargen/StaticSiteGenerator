@@ -48,7 +48,7 @@ def text_to_html_node(block):
     block_type = block_to_block_type(block)
     if (block_type == "heading"):
         for i in range(1, 7):
-            if block.startswith('#' * i):
+            if len(block) >= i + 1 and block.startswith('#' * i) and block[i] == ' ':
                 text = block[i + 1:]
                 return ParentNode(tag=f"h{i}",children=text_to_children(text))
     elif (block_type == "code"):
