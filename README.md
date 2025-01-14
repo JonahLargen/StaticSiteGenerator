@@ -60,10 +60,10 @@ The rough psuedocode for this application's markdown to html converter is as fol
 1. Start with the markdown string.
 2. Split the markdown into text blocks. Blocks represent each 'element' in markdown, such as a heading, paragraph, list, or code block.
 3. Convert each text block into an html node as follows:
-  - Detect the block's type and remove the associated characters.
-  - Convert the remaining text into text nodes (pull out bold, italic, links, images, plain text, etc).
-  - Convert the text nodes into equivalent html nodes.
-  - Return a parent html node (using the block type) and set the children to the calculated html nodes.
+   - Detect the block's type and remove the associated characters.
+   - Convert the remaining text into text nodes (pull out bold, italic, links, images, plain text, etc).
+   - Convert the text nodes into equivalent html nodes.
+   - Return a parent html node (using the block type) and set the children to the calculated html nodes.
 4. Return a parent html node (div) with the aforementioned html nodes as children.
 
 ## Further Considerations
