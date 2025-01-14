@@ -1,5 +1,5 @@
 # Static Site Generator
-<img src="ssg.jpeg" width="256" alt="Static Site Generator">
+<img src="ssg.jpg" width="256" alt="Static Site Generator">
 
 [boot.dev](https://boot.dev) Static Site Generator
 
