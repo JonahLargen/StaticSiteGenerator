@@ -21,25 +21,7 @@ A python application that converts markdown files into html. The SSR script will
 * Disney *didn't ruin it*
 * It created an entirely new genre of fantasy
 
-## My favorite characters (in order)
-
-1. Gandalf
-2. Bilbo
-3. Sam
-4. Glorfindel
-5. Galadriel
-6. Elrond
-7. Thorin
-8. Sauron
-9. Aragorn
-
-Here's what `elflang` looks like (the perfect coding language):
-
-```
-func main(){
-    fmt.Println("Hello, World!")
-}
-```
+...
 ```
 
 ## Output
