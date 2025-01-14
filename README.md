@@ -73,4 +73,4 @@ There are two primary improvements that could be made to this project:
 1. Blocks must be seperated by two newline characters (an empty row inbetween). Typical markdown processors can handle just one newline character and detect either continuations of a prior element or a new element.
 2. Nested delimiters are not supported. For example, you could not do '**bold text with *italic inside* the text**'.
 
-Both improvements require more robust algorithms that actually parse the text. Both aforementioned shortcomings are due to strict delimiter splits being used instead.
+Both improvements require more robust parsing algorithms. Both aforementioned shortcomings are due to strict delimiter splits being used instead, one for markdown to blocks, and one for text to text nodes.
