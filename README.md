@@ -28,9 +28,9 @@ To start the website, simply run the main script:
 
 The console will output the content files it converted to html and let you know the server is ready.
 
-> Generating page from content/majesty/index.md to public/majesty/index.html using template.html
-> Generating page from content/index.md to public/index.html using template.html
-> Serving HTTP on 0.0.0.0 port 8888 (http://0.0.0.0:8888/) ...
+- Generating page from content/majesty/index.md to public/majesty/index.html using template.html
+- Generating page from content/index.md to public/index.html using template.html
+- Serving HTTP on 0.0.0.0 port 8888 (http://0.0.0.0:8888/) ...
 
 Output is placed and served via the `/public` folder by default.
 
