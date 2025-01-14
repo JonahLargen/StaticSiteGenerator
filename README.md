@@ -3,7 +3,7 @@
 
 [boot.dev](https://boot.dev) Static Site Generator
 
-A python application that converts markdown files into html. The SSR script will first convert your markdown into html then setup a python http server for you to view the final result.
+A python application that converts markdown files into html. The SSG script will first convert your markdown into html then setup a python http server for you to view the final result.
 
 ## Input
 
