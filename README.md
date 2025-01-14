@@ -7,7 +7,7 @@ A python application that converts markdown files into html. The SSR script will
 
 ## Output
 
-<img src="sample_html.png" width="256" alt="Sample HTML">
+<img src="sample_html.png" width="512" alt="Sample HTML">
 
 ## Setup
 
