@@ -49,10 +49,28 @@ The console will output the content files it converted to html and let you know 
 
 - Generating page from content/majesty/index.md to public/majesty/index.html using template.html
 - Generating page from content/index.md to public/index.html using template.html
-- Serving HTTP on 0.0.0.0 port 8888 (http://0.0.0.0:8888/) ...
+- Serving HTTP on 0.0.0.0 port 8888 ...
 
 Output is placed and served via the `/public` folder by default.
 
+## Algorithm Explanation
+
+The rough psuedocode for this application's markdown to html converter is as follows:
+
+1. Start with the markdown string.
+2. Split the markdown into text blocks. Blocks represent each 'element' in markdown, such as a heading, paragraph, list, or code block.
+3. Convert each text block into an html node as follows:
+  - Detect the block's type and remove the associated characters.
+  - Convert the remaining text into text nodes (pull out bold, italic, links, images, plain text, etc).
+  - Convert the text nodes into equivalent html nodes.
+  - Return a parent html node (using the block type) and set the children to the calculated html nodes.
+4. Return a parent html node (div) with the aforementioned html nodes as children.
+
 ## Further Considerations
 
-...
+There are two primary improvements that could be made to this project:
+
+1. Blocks must be seperated by two newline characters (an empty row inbetween). Typical markdown processors can handle just one newline character and detect either continuations of a prior element or a new element.
+2. Nested delimiters are not supported. For example, you could not do '**bold text with *italic inside* the text**'.
+
+Both improvements require more robust algorithms that actually parse the text. Both aforementioned shortcomings are due to strict delimiter splits being used instead.
